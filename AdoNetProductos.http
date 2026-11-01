@@ -1,0 +1,33 @@
+@url = http://localhost:5081
+
+### Consultar todos
+GET {{url}}/productos
+
+### Insertar (copia el Id de la respuesta para las demás peticiones)
+POST {{url}}/productos
+Content-Type: application/json
+
+{
+  "nombre": "Mouse",
+  "descripcion": "Mouse USB",
+  "precio": 150.50,
+  "existencia": 10
+}
+
+### Buscar (sustituye 1 por el Id real)
+GET {{url}}/productos/1
+
+### Actualizar
+PUT {{url}}/productos/1
+Content-Type: application/json
+
+{
+  "nombre": "Mouse",
+  "descripcion": "Mouse USB actualizado",
+  "precio": 175.00,
+  "existencia": 8
+}
+
+### Eliminar
+DELETE {{url}}/productos/1
+
