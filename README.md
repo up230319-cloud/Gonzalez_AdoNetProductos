@@ -31,16 +31,6 @@ dotnet run
 
 4. Abre [Swagger](http://localhost:5081/swagger/index.html).
 
-También puedes ejecutar el script desde PowerShell si tienes sqlcmd:
-
-```powershell
-sqlcmd -S "(localdb)\MSSQLLocalDB" -E -C -b -i Scripts/CrearTabla.sql
-```
-
-Si usas otra instancia, cambia `Server` en `ConnectionStrings:DefaultConnection` dentro de appsettings.json. La conexión incluida utiliza autenticación de Windows. No guardes contraseñas en Git.
-
-Si LocalDB está detenido, puedes iniciarlo desde tu terminal con `SqlLocalDB start MSSQLLocalDB`. Esta API es una práctica local; Swagger está habilitado para facilitar las pruebas.
-
 ## Probar las cinco operaciones en Swagger
 
 En cada operación pulsa **Try it out**, completa los datos y pulsa **Execute**.
@@ -77,7 +67,7 @@ Debe responder **200**. Vuelve a buscarlo para comprobar el cambio. En esta vers
 
 Buscar, actualizar o eliminar un Id inexistente devuelve **404**. Un nombre vacío, un precio inválido o una existencia negativa devuelve **400**. El nombre admite hasta 100 caracteres, la descripción hasta 255 y el precio debe ser positivo, con máximo dos decimales y valor máximo de 99999999.99.
 
-## Explicación del flujo con palabras propias
+## Explicación del flujo
 
 El recorrido es: **Swagger → ruta de Program.cs → repositorio → SQL Server → respuesta HTTP**.
 
@@ -101,20 +91,5 @@ Los valores se pasan mediante parámetros como @Id y @Nombre. AddWithValue asign
 
 Antes de insertar o actualizar, EsValido revisa los datos básicos. Finalmente, cada ruta transforma el resultado en una respuesta: 200 para operaciones correctas, 201 para creación, 400 para datos inválidos y 404 cuando no existe el producto.
 
-## Evidencia y repositorio
 
-Consulta EVIDENCIA.md para ver qué se probó realmente. Esta carpeta es un repositorio Git local. El archivo AdoNetProductos.bundle conserva su historial y se puede clonar:
-
-```powershell
-git clone AdoNetProductos.bundle AdoNetProductosCopia
-```
-
-Para entregar un enlace remoto, crea un repositorio vacío en tu cuenta de GitHub y, desde esta carpeta, ejecuta:
-
-```powershell
-git remote add origin https://github.com/TU_USUARIO/AdoNetProductos.git
-git push -u origin main
-```
-
-La referencia proporcionada solo se consultó como guía; no se modificó ni se publicó nada en ella. Puedes adjuntar capturas de Swagger con las respuestas de las cinco operaciones una vez que tu SQL Server esté conectado.
 
